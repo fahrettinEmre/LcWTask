@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+     containers:
+      - name: my-app
+        image: registry.gitlab.com/fahrettinemre/taskforlcwaikiki:master
+        # args:
+        # - /bin/sh
+        # - -c
+        # - touch /healthcheck
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 80
+          initialDelaySeconds: 5 
+          timeoutSeconds: 2
+          failureThreshold: 2
+          # successThreshold: 2
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 80
+          initialDelaySeconds: 5 
+          timeoutSeconds: 2
+          failureThreshold: 2
+          successThreshold: 2
+          periodSeconds: 5
