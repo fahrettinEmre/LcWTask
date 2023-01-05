@@ -1,4 +1,4 @@
-# LC WAİKİKİ CASE
+# LC WAIKIKI CASE
 
 ## Table of contents
 
